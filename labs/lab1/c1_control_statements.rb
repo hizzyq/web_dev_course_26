@@ -129,7 +129,7 @@ end
 def check_size(num)
   # TODO: Use: return "big" if num > 100; return num
   return "big" if num > 100
-  return num
+  num
 end
 
 # ============================================
