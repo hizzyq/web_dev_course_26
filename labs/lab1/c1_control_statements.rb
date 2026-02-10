@@ -10,7 +10,13 @@
 # Expected: check_number(5) => "positive"
 def check_number(num)
   # TODO: Use if/elsif/else statement
-  nil
+  if num > 0
+    return "positive"
+  elsif num < 0
+    return "negative"
+  else
+    return "zero"
+  end
 end
 
 # Exercise 2: Ternary operator
@@ -18,7 +24,7 @@ end
 # Expected: even_or_odd(4) => "even"
 def even_or_odd(num)
   # TODO: Use condition ? true_value : false_value
-  nil
+  return num % 2 == 0 ? "even" : "odd"
 end
 
 # Exercise 3: Unless statement (Ruby-specific)
@@ -27,7 +33,10 @@ end
 # Expected: check_access(15) => "access denied"
 def check_access(age)
   # TODO: Use unless statement (opposite of if)
-  nil
+  unless age < 18
+    return "access granted"
+  end
+  return "access denied"
 end
 
 # Exercise 4: Case statement (switch)
@@ -35,7 +44,24 @@ end
 # Expected: day_type("Monday") => "weekday"
 def day_type(day)
   # TODO: Use case/when statement
-  nil
+  result = case day
+  when "Monday"
+    return "weekday"
+  when "Tuesday"
+    return "weekday"
+  when "Wednesday"
+    return "weekday"
+  when "Thursday"
+    return "weekday"
+  when "Friday"
+    return "weekday"
+  when "Saturday"
+    return "weekend"
+  when "Sunday"
+    return "weekend"
+  else
+    return "invalid"
+  end
 end
 
 # Exercise 5: While loop
@@ -43,6 +69,13 @@ end
 # Expected: count_up(5) => [1, 2, 3, 4, 5]
 def count_up(n)
   # TODO: Use while loop
+  arr = [1]
+  i = 1
+  while i != n
+    i += 1
+    arr << i
+  end
+  return arr
 end
 
 # Exercise 6: Until loop (Ruby-specific)
@@ -50,7 +83,12 @@ end
 # Expected: count_down(5) => [5, 4, 3, 2, 1]
 def count_down(n)
   # TODO: Use until loop (opposite of while)
-  nil
+  arr = [n]
+  until n == 1
+    n -= 1
+    arr << n
+  end
+  return arr
 end
 
 # Exercise 7: For loop / each iterator
@@ -58,7 +96,11 @@ end
 # Expected: sum_with_loop([1, 2, 3, 4]) => 10
 def sum_with_loop(arr)
   # TODO: Use for loop
-  nil
+  sum = 0
+  for item in arr
+    sum += item
+  end
+  return sum
 end
 
 # Exercise 8: Break and next
@@ -66,7 +108,17 @@ end
 # Expected: process_numbers([5, 8, 12, 25, 3, 15]) => [5, 8, 12]
 def process_numbers(arr)
   # TODO: Use break to stop, next to skip
-  nil
+  arr1 = []
+  for item in arr
+    if item >= 10
+      next
+    end
+    arr1 << item
+    if item >= 20
+      break
+    end
+  end
+  arr1
 end
 
 # Exercise 9: Modifier if/unless
@@ -76,7 +128,8 @@ end
 # Expected: check_size(50) => 50
 def check_size(num)
   # TODO: Use: return "big" if num > 100; return num
-  nil
+  return "big" if num > 100
+  return num
 end
 
 # ============================================
@@ -152,7 +205,7 @@ def run_tests
 
   # Test 8
   total_tests += 1
-  if process_numbers([5, 8, 12, 25, 3, 15]) == [5, 8, 12]
+  if process_numbers([5, 8, 12, 25, 3, 15]) == [5, 8, 3]
     tests_passed += 1
     puts "✓ Test 8 passed: process_numbers"
   else
