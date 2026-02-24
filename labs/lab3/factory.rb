@@ -8,180 +8,198 @@
 # Exercise 1: Simple Factory for creating different types of vehicles
 # Implement a VehicleFactory that creates Cars, Motorcycles, and Trucks
 
+# Vehicle base class
 class Vehicle
   attr_reader :type, :wheels, :capacity
-  
+
   def initialize(type, wheels, capacity)
     @type = type
     @wheels = wheels
     @capacity = capacity
   end
-  
+
   def description
     "#{@type} with #{@wheels} wheels, capacity: #{@capacity} passengers"
   end
 end
 
+# Car class (derived from Vehicle)
 class Car < Vehicle
   def initialize
-    # TODO: Call super with appropriate values
     # Car: 4 wheels, 5 passengers
-    nil
+    super(:car, 4, 5)
   end
 end
 
+# Motorcycle class (derived from Vehicle)
 class Motorcycle < Vehicle
   def initialize
-    # TODO: Call super with appropriate values
     # Motorcycle: 2 wheels, 2 passengers
-    nil
+    super(:motorcycle, 2, 2)
   end
 end
 
+# Truck class (derived from Vehicle)
 class Truck < Vehicle
   def initialize
-    # TODO: Call super with appropriate values
     # Truck: 6 wheels, 3 passengers
-    nil
+    super(:truck, 6, 3)
   end
 end
 
+# Vehicle factory class
 class VehicleFactory
-  # TODO: Implement create_vehicle method
   # It should take a symbol (:car, :motorcycle, or :truck)
   # and return an instance of the appropriate class
   # Return nil for unknown types
-  
+
+  # Doesn't need return statement AND else return nil is auto-generated and also isn't needed (?)
   def self.create_vehicle(type)
-    nil
+    case type
+    when :car
+      Car.new
+    when :motorcycle
+      Motorcycle.new
+    when :truck
+      Truck.new
+    else
+      nil
+    end
   end
 end
 
 # Exercise 2: Factory Method Pattern
 # Create different types of notifications (Email, SMS, Push)
 
+# Notification base class
 class Notification
   def send(message)
-    raise NotImplementedError, "Subclasses must implement send method"
+    raise NotImplementedError, 'Subclasses must implement send method'
   end
 end
 
+# Email class (derived from Notification)
 class EmailNotification < Notification
-  # TODO: Implement send method
   # Return "Email sent: #{message}"
   def send(message)
-    nil
+    "Email sent: #{message}"
   end
 end
 
+# SMS class (derived from Notification)
 class SMSNotification < Notification
-  # TODO: Implement send method
   # Return "SMS sent: #{message}"
   def send(message)
-    nil
+    "SMS sent: #{message}"
   end
 end
 
+# Push class (derived from Notification)
 class PushNotification < Notification
-  # TODO: Implement send method
   # Return "Push notification sent: #{message}"
   def send(message)
-    nil
+    "Push notification sent: #{message}"
   end
 end
 
+# Notification factory class
 class NotificationFactory
-  # TODO: Create a factory method that returns appropriate notification
   # Input: type (:email, :sms, :push)
   # Output: instance of appropriate notification class
-  
+
   def self.create(type)
-    nil
+    case type
+    when :sms
+      SMSNotification.new
+    when :push
+      PushNotification.new
+    when :email
+      EmailNotification.new
+    else
+      nil
+    end
   end
+
 end
 
 # Exercise 3: Abstract Factory Pattern
 # Create UI elements for different themes (Light and Dark)
 
+# Base UIElem module
 module UIElement
   def render
     raise NotImplementedError
   end
 end
 
+# Light theme button class
 class LightButton
   include UIElement
-  
-  # TODO: Implement render method
   # Return "Rendering light button"
   def render
-    nil
+    'Rendering light button'
   end
 end
 
+# Dark theme button class
 class DarkButton
   include UIElement
-  
-  # TODO: Implement render method
   # Return "Rendering dark button"
   def render
-    nil
+    'Rendering dark button'
   end
 end
 
+# Light theme text field class
 class LightTextField
   include UIElement
-  
-  # TODO: Implement render method
   # Return "Rendering light text field"
   def render
-    nil
+    'Rendering light text field'
   end
 end
 
+# Dark theme text field class
 class DarkTextField
   include UIElement
-  
-  # TODO: Implement render method
   # Return "Rendering dark text field"
   def render
-    nil
+    'Rendering dark text field'
   end
 end
 
+# Theme factory class
 class ThemeFactory
   def create_button
     raise NotImplementedError
   end
-  
+
   def create_text_field
     raise NotImplementedError
   end
 end
 
+# Light theme text factory class
 class LightThemeFactory < ThemeFactory
-  # TODO: Implement create_button to return LightButton
-  # TODO: Implement create_text_field to return LightTextField
-  
+
   def create_button
-    nil
+    LightButton.new
   end
-  
+
   def create_text_field
-    nil
+    LightTextField.new
   end
 end
 
+# Dark theme factory class
 class DarkThemeFactory < ThemeFactory
-  # TODO: Implement create_button to return DarkButton
-  # TODO: Implement create_text_field to return DarkTextField
-  
+
   def create_button
-    nil
+    DarkButton.new
   end
-  
+
   def create_text_field
-    nil
+    DarkTextField.new
   end
 end
 
@@ -192,142 +210,142 @@ end
 def run_tests
   tests_passed = 0
   total_tests = 0
-  
-  puts "Testing Factory Pattern..."
-  puts "=" * 40
-  
+
+  puts 'Testing Factory Pattern...'
+  puts '=' * 40
+
   # Test 1: VehicleFactory creates Car
   total_tests += 1
   begin
     car = VehicleFactory.create_vehicle(:car)
     if car.is_a?(Car) && car.wheels == 4 && car.capacity == 5
       tests_passed += 1
-      puts "✓ Test 1 passed: VehicleFactory creates Car"
+      puts '✓ Test 1 passed: VehicleFactory creates Car'
     else
-      puts "✗ Test 1 failed: Car not created correctly"
+      puts '✗ Test 1 failed: Car not created correctly'
     end
   rescue => e
     puts "✗ Test 1 failed: #{e.message}"
   end
-  
+
   # Test 2: VehicleFactory creates Motorcycle
   total_tests += 1
   begin
     motorcycle = VehicleFactory.create_vehicle(:motorcycle)
     if motorcycle.is_a?(Motorcycle) && motorcycle.wheels == 2
       tests_passed += 1
-      puts "✓ Test 2 passed: VehicleFactory creates Motorcycle"
+      puts '✓ Test 2 passed: VehicleFactory creates Motorcycle'
     else
-      puts "✗ Test 2 failed: Motorcycle not created correctly"
+      puts '✗ Test 2 failed: Motorcycle not created correctly'
     end
   rescue => e
     puts "✗ Test 2 failed: #{e.message}"
   end
-  
+
   # Test 3: VehicleFactory creates Truck
   total_tests += 1
   begin
     truck = VehicleFactory.create_vehicle(:truck)
     if truck.is_a?(Truck) && truck.wheels == 6
       tests_passed += 1
-      puts "✓ Test 3 passed: VehicleFactory creates Truck"
+      puts '✓ Test 3 passed: VehicleFactory creates Truck'
     else
-      puts "✗ Test 3 failed: Truck not created correctly"
+      puts '✗ Test 3 failed: Truck not created correctly'
     end
   rescue => e
     puts "✗ Test 3 failed: #{e.message}"
   end
-  
+
   # Test 4: NotificationFactory creates EmailNotification
   total_tests += 1
   begin
     email = NotificationFactory.create(:email)
-    result = email.send("Hello")
-    if result == "Email sent: Hello"
+    result = email.send('Hello')
+    if result == 'Email sent: Hello'
       tests_passed += 1
-      puts "✓ Test 4 passed: Email notification works"
+      puts '✓ Test 4 passed: Email notification works'
     else
-      puts "✗ Test 4 failed: Email notification incorrect"
+      puts '✗ Test 4 failed: Email notification incorrect'
     end
   rescue => e
     puts "✗ Test 4 failed: #{e.message}"
   end
-  
+
   # Test 5: NotificationFactory creates SMSNotification
   total_tests += 1
   begin
     sms = NotificationFactory.create(:sms)
-    result = sms.send("Test")
-    if result == "SMS sent: Test"
+    result = sms.send('Test')
+    if result == 'SMS sent: Test'
       tests_passed += 1
-      puts "✓ Test 5 passed: SMS notification works"
+      puts '✓ Test 5 passed: SMS notification works'
     else
-      puts "✗ Test 5 failed: SMS notification incorrect"
+      puts '✗ Test 5 failed: SMS notification incorrect'
     end
   rescue => e
     puts "✗ Test 5 failed: #{e.message}"
   end
-  
+
   # Test 6: NotificationFactory creates PushNotification
   total_tests += 1
   begin
     push = NotificationFactory.create(:push)
-    result = push.send("Alert")
-    if result == "Push notification sent: Alert"
+    result = push.send('Alert')
+    if result == 'Push notification sent: Alert'
       tests_passed += 1
-      puts "✓ Test 6 passed: Push notification works"
+      puts '✓ Test 6 passed: Push notification works'
     else
-      puts "✗ Test 6 failed: Push notification incorrect"
+      puts '✗ Test 6 failed: Push notification incorrect'
     end
   rescue => e
     puts "✗ Test 6 failed: #{e.message}"
   end
-  
+
   # Test 7: LightThemeFactory creates light UI elements
   total_tests += 1
   begin
     factory = LightThemeFactory.new
     button = factory.create_button
     text_field = factory.create_text_field
-    
-    if button.render == "Rendering light button" && 
-       text_field.render == "Rendering light text field"
+
+    if button.render == 'Rendering light button' &&
+       text_field.render == 'Rendering light text field'
       tests_passed += 1
-      puts "✓ Test 7 passed: LightThemeFactory works"
+      puts '✓ Test 7 passed: LightThemeFactory works'
     else
-      puts "✗ Test 7 failed: Light theme elements incorrect"
+      puts '✗ Test 7 failed: Light theme elements incorrect'
     end
   rescue => e
     puts "✗ Test 7 failed: #{e.message}"
   end
-  
+
   # Test 8: DarkThemeFactory creates dark UI elements
   total_tests += 1
   begin
     factory = DarkThemeFactory.new
     button = factory.create_button
     text_field = factory.create_text_field
-    
-    if button.render == "Rendering dark button" && 
-       text_field.render == "Rendering dark text field"
+
+    if button.render == 'Rendering dark button' &&
+       text_field.render == 'Rendering dark text field'
       tests_passed += 1
-      puts "✓ Test 8 passed: DarkThemeFactory works"
+      puts '✓ Test 8 passed: DarkThemeFactory works'
     else
-      puts "✗ Test 8 failed: Dark theme elements incorrect"
+      puts '✗ Test 8 failed: Dark theme elements incorrect'
     end
   rescue => e
     puts "✗ Test 8 failed: #{e.message}"
   end
-  
-  puts "\n" + "=" * 40
+
+  puts "\n" + '=' * 40
   if tests_passed == total_tests
     puts "🎉 All tests passed! (#{tests_passed}/#{total_tests})"
     puts "Great! You've mastered the Factory pattern!"
   else
     puts "Tests passed: #{tests_passed}/#{total_tests}"
-    puts "Keep working on the remaining exercises."
+    puts 'Keep working on the remaining exercises.'
   end
-  puts "=" * 40
+  puts '=' * 40
 end
 
 # Run the tests
